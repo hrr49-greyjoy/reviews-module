@@ -1,17 +1,45 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
-  "license": "",
+  "name": "reviews-component",
+  "description": "> Project description",
+  "author": "Tre Moore",
+  "license": "ISC",
   "engines": {
     "node": ">=6.13.0"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
+    "aws-sdk": "^2.789.0",
+    "enzyme": "^3.11.0",
+    "express": "^4.17.1",
+    "jest": "^26.6.3",
+    "mongoose": "^5.10.13",
+    "node": "^15.0.1",
+    "react": "^17.0.1",
+    "react-router": "^5.2.0",
+    "styled-components": "^5.2.1",
+    "travis-ci": "^2.2.0"
   },
   "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
-  }
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "babel-loader": "^8.2.1",
+    "eslint": "^7.13.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor.git",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "webpack": "^5.4.0"
+  },
+  "version": "1.0.0",
+  "main": "./server/app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hrr49-greyjoy/starter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hrr49-greyjoy/starter/issues"
+  },
+  "homepage": "https://github.com/hrr49-greyjoy/starter#readme"
 }
