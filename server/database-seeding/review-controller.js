@@ -33,6 +33,7 @@ module.exports.getData = () => {
         recommended: recommended[Math.floor(Math.random() * 2)],
         images: imageURLS.slice(Math.floor(Math.random() * imageURLS.length),
           Math.floor(Math.random() * imageURLS.length) + 1),
+        profilePic: faker.image.avatar(),
       };
       documents.push(obj);
     }
