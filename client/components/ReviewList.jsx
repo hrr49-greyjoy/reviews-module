@@ -4,6 +4,7 @@ import Review from './Review';
 
 const ReviewList = (props) => {
   const { reviews } = props;
+  console.log(JSON.stringify(reviews));
   return (
     <div>
       {reviews.map((review) => (<Review review={review} key={review.id} />))}
