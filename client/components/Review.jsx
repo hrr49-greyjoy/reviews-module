@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const Review = (props) => {
   const { review } = props;
+  const renderedImages = review.images.slice(0, 3);
   return (
     <div>
       <div className="author-information">
@@ -25,6 +26,9 @@ const Review = (props) => {
           Helpful?
           {review.helpfuls}
         </p>
+      </div>
+      <div className="images">
+        {renderedImages.map((image) => <img src={image} alt={image.substring(image.indexOf('amazonaws.com/') + 14)} />)}
       </div>
     </div>
   );
