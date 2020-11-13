@@ -13,6 +13,7 @@ const reviewSchema = Schema({
   tagline: String,
   dateAdded: Date,
   recommended: Boolean,
+  images: Array,
 
 });
 
