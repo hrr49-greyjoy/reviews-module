@@ -14,6 +14,7 @@ const reviewSchema = Schema({
   dateAdded: Date,
   recommended: Boolean,
   images: Array,
+  profilePic: String,
 
 });
 

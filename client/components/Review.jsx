@@ -9,9 +9,15 @@ const Review = (props) => {
     width: 120px;
     height: 120px;
   `;
+  const ProfilePicture = styled.img`
+  height:40px;
+  width:40px;
+  border-radius:20px;
+  `;
   return (
     <div>
       <div className="author-information">
+        <ProfilePicture src={review.profilePic} />
         <p>
           <strong>First Name:</strong>
           {review.author.firstName}
