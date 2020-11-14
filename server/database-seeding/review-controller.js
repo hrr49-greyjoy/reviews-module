@@ -6,7 +6,7 @@ const path = require('path');
 
 const faker = require('faker');
 
-const recommended = [true, false];
+const recommended = ['Yes', 'No', 'Neutral'];
 
 const documents = [];
 
@@ -30,7 +30,7 @@ module.exports.getData = () => {
         description: faker.lorem.paragraph(),
         tagline: faker.lorem.sentence(),
         dateAdded: faker.date.between('2015-01-01', '2020-01-08'),
-        recommended: recommended[Math.floor(Math.random() * 2)],
+        recommended: recommended[Math.floor(Math.random() * 3)],
         images: imageURLS.slice(Math.floor(Math.random() * imageURLS.length),
           Math.floor(Math.random() * imageURLS.length) + 1),
         profilePic: faker.image.avatar(),

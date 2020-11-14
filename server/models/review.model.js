@@ -12,7 +12,7 @@ const reviewSchema = Schema({
   description: String,
   tagline: String,
   dateAdded: Date,
-  recommended: Boolean,
+  recommended: String,
   images: Array,
   profilePic: String,
 
