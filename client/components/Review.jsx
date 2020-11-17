@@ -5,28 +5,34 @@ import { FaRegThumbsUp, FaRegFlag, FaRegMeh } from 'react-icons/fa';
 import { HiThumbUp, HiThumbDown } from 'react-icons/hi';
 
 const Review = (props) => {
-  const { review } = props;
+  const { review, onImageClick } = props;
   const renderedImages = review.images.slice(0, 9);
   const iconChoices = {
     Yes: [<HiThumbUp size={14} />, '#40d9ac', 'recommends'],
-    No: [<HiThumbDown size={14} />, '#757575', 'does\'nt recommend'],
+    No: [<HiThumbDown size={14} />, '#757575', 'doesn\'t recommend'],
     Neutral: [<FaRegMeh size={14} />, '#757575', 'has mixed feelings towards'],
   };
   const Image = styled.img`
-    max-width: 8em;
-    max-height: 8em;
-    width: 5em;
-    height: 5em;
+    max-width: 10em;
+    max-height: 10em;
+    width: 8em;
+    height: 8em;
+    min-width: 3em;
+    min-height: 3em;
     border-radius: 10%;
     margin-right: 0.7em;
     margin-bottom: 0.7em;
+    &:hover {
+      cursor: pointer;
+      opacity: 0.9;
+    }
   `;
   const ImageContainer = styled.div`
     display: flex;
     margin: 0;
     flex-wrap: wrap;
     align-items: space-between;
-    width: 20em;
+    width: 40em;
   `;
   const ProfilePicture = styled.img`
   height:60px;
@@ -47,6 +53,7 @@ const Review = (props) => {
   border-bottom: 0.1em solid #ebebeb;
   width: 72%;
   margin-left: 11em;
+  max-width: 700px
   `;
 
   const AuthorInformation = styled.div`
@@ -58,6 +65,7 @@ const Review = (props) => {
   margin-left: 4.5em;
   font-size: 0.8em;
   width: auto;
+  max-width: 700px;
   `;
   const Tagline = styled.h1`
   align-self: center;
@@ -146,7 +154,6 @@ const Review = (props) => {
 
   return (
     <>
-      <Line />
       <ReviewSection>
         <AuthorInformation>
           <ProfilePicture src={review.profilePic} />
@@ -174,7 +181,7 @@ const Review = (props) => {
           renderedImages.length > 0
             ? (
               <ImageContainer>
-                {renderedImages.map((image) => <Image src={image} alt={image.substring(image.indexOf('amazonaws.com/') + 14)} />)}
+                {renderedImages.map((image) => <Image src={image.url} onClick={() => onImageClick(true, image.index)} alt={image.url.substring(image.url.indexOf('amazonaws.com/') + 14)} />)}
               </ImageContainer>
             ) : (<></>)
           }
@@ -192,10 +199,12 @@ const Review = (props) => {
           </HelpfulsContainer>
         </ReviewBody>
       </ReviewSection>
+      <Line />
     </>
   );
 };
 Review.propTypes = {
   review: PropTypes.element.isRequired,
+  onImageClick: PropTypes.element.isRequired,
 };
 export default Review;
