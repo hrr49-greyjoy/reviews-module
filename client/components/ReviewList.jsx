@@ -92,10 +92,24 @@ const ReviewList = (props) => {
   top: 50%;
   display: block;
   float: left;
-  position: absolute;
+  position: fixed;
   z-index: 2;
+
+  `;
+  const Next = styled(IoIosArrowForward)`
+  transition: 0.1s;
   &:hover {
+    color: #FFF;
     cursor: pointer;
+    transform: scale(1.2);
+  }
+  `;
+  const Back = styled(IoIosArrowBack)`
+  transition: 0.1s;
+  &:hover {
+    color: #FFF;
+    cursor: pointer;
+    transform: scale(1.2);
   }
   `;
   const RightArrow = styled.div`
@@ -104,7 +118,7 @@ const ReviewList = (props) => {
   left: 97%;
   display: block;
   float: right;
-  position: absolute;
+  position: fixed;
   z-index: 2;
   &:hover {
     cursor: pointer;
@@ -212,6 +226,30 @@ const ReviewList = (props) => {
   color: #FFF;
   text-align: center;
   `;
+  const LinkTo = styled(FaLink)`
+    &:hover {
+      transform: scale(1.2);
+      cursor: pointer;
+    }
+  `;
+  const Pinterest = styled(FaPinterest)`
+    &:hover {
+      transform: scale(1.2);
+      cursor: pointer;
+    }
+  `;
+  const Facebook = styled(FaFacebook)`
+    &:hover {
+      transform: scale(1.2);
+      cursor: pointer;
+    }
+  `;
+  const Twitter = styled(FaTwitter)`
+    &:hover {
+      transform: scale(1.2);
+      cursor: pointer;
+    }
+  `;
 
   const Help = styled.button`
   background-color: #40d9ac;
@@ -237,6 +275,10 @@ const ReviewList = (props) => {
     border: none;
   };
   `;
+  const Cross = styled(IoMdClose)`
+  &:hover {
+    color: #FFF;
+  }`;
 
   const setImages = () => {
     const mappedImages = reviews.map((x) => (x.images.map((y, i) => ({
@@ -301,7 +343,7 @@ const ReviewList = (props) => {
               </Report>
             </FlexContainer>
             <CloseContainer>
-              <IoMdClose size={25} onClick={() => toggleModal(false)} />
+              <Cross size={25} onClick={() => toggleModal(false)} />
             </CloseContainer>
             <AuthorInformation>
               <NameAndDate>
@@ -317,18 +359,18 @@ const ReviewList = (props) => {
                 <Paragraph>{images[selectedImageIndex].helpfuls}</Paragraph>
               </Helpfuls>
               <IconList>
-                <FaPinterest />
-                <FaFacebook />
-                <FaTwitter />
-                <FaLink />
+                <Pinterest />
+                <Facebook />
+                <Twitter />
+                <LinkTo />
               </IconList>
             </AuthorInformation>
             <LeftArrow>
-              <IoIosArrowBack size={50} onClick={() => changeImage(selectedImageIndex - 1)} />
+              <Back size={50} onClick={() => changeImage(selectedImageIndex - 1)} />
             </LeftArrow>
             <Image src={images[selectedImageIndex].url} />
             <RightArrow>
-              <IoIosArrowForward size={50} onClick={() => changeImage(selectedImageIndex + 1)} />
+              <Next size={50} onClick={() => changeImage(selectedImageIndex + 1)} />
             </RightArrow>
             <Caption>{images[selectedImageIndex].caption}</Caption>
             <Help>
