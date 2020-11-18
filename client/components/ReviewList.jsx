@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { IoIosArrowBack, IoIosArrowForward, IoMdClose } from 'react-icons/io';
 import {
-  FaRegThumbsUp, FaPinterest, FaFacebook, FaTwitter, FaLink,
+  FaRegThumbsUp, FaPinterest, FaFacebook, FaTwitter, FaLink, FaRegFlag,
 } from 'react-icons/fa';
+import { MdHelpOutline } from 'react-icons/md';
 
 import Review from './Review';
 
@@ -57,6 +58,21 @@ const ReviewList = (props) => {
   color: #333333;
   margin: 0;
   `;
+  const Paragraph = styled.p`
+  margin: 0;
+  `;
+  const ParagraphInline = styled.p`
+  margin: 0;
+  margin-left: 0.25em;
+  display: inline-block;
+  `;
+  const Progress = styled.p`
+  margin: 0;
+  padding: 10px;
+  color: #FFF;
+  font-size:13px;
+  display: inline-block;
+  `;
   const ModalContainer = styled.div`
   display: block;
   position: fixed;
@@ -94,6 +110,25 @@ const ReviewList = (props) => {
     cursor: pointer;
   }
   `;
+  const FlexContainer = styled.div`
+  display: flex;
+  position: fixed;
+  align-items: center;
+  `;
+  const Report = styled.a`
+  text-decoration: none;
+  align-self: center;
+  font-size: 0.8em;
+  margin-left: 0.75em;
+  transition: 0.4s;
+  color: #757575;
+  display: flex;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+    color: #40d9ac;
+  };
+  `;
   const Image = styled.img`
     max-height: 75%;
     max-width: 75%;
@@ -105,7 +140,7 @@ const ReviewList = (props) => {
   `;
   const AuthorInformation = styled.div`
   max-width: 58%;
-  margin: 1% auto 1% auto;
+  margin: 1% auto;
   z-index: 2;
   display: grid;
   grid-template: 4fr 1fr / 3fr auto;
@@ -119,6 +154,7 @@ const ReviewList = (props) => {
   `;
   const CloseContainer = styled.div`
   float: right;
+  float: top;
   color: #ededed;
   margin-top: 0.5em;
   margin-right: 0.5em;
@@ -168,18 +204,50 @@ const ReviewList = (props) => {
   justify-content: space-between;
   color: #ededed;
   `;
+  const Caption = styled.p`
+  margin: 0;
+  padding: 1em;
+  margin-top: 1em;
+  font-weight: bold;
+  color: #FFF;
+  text-align: center;
+  `;
+
+  const Help = styled.button`
+  background-color: #40d9ac;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 2em;
+  border: none;
+  border-radius: 5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #1D5242;
+  height: 3em;
+  width: 7em;
+  gap: 0.25em;
+  font-weight: 600;
+  font-size:0.9em;
+  transition: 0.4s;
+  &:hover {
+    background-color: #3cc69e;
+    cursor: pointer;
+    border: none;
+  };
+  `;
 
   const setImages = () => {
-    const mappedImages = reviews.map((x) => (x.images.map((y, i) => {
-      if (typeof y === 'string') {
-        return {
-          url: y, userPic: x.profilePic, author: x.author, index: i, date: x.dateAdded,
-        };
-      }
-      return {
-        url: y.url, userPic: x.profilePic, author: x.author, index: i, date: x.dateAdded,
-      };
-    })));
+    const mappedImages = reviews.map((x) => (x.images.map((y, i) => ({
+      url: y.url,
+      userPic: x.profilePic,
+      author: x.author,
+      index: i,
+      date: x.dateAdded,
+      helpfuls: y.imageHelpfuls,
+      caption: y.caption,
+    }))));
     let newReviewList = [];
     let counter = -1;
     for (let i = 0; i < reviews.length; i += 1) {
@@ -225,6 +293,13 @@ const ReviewList = (props) => {
       { modalToggle === true ? (
         <>
           <ModalContainer>
+            <FlexContainer>
+              <Progress>{`${selectedImageIndex + 1} / ${images.length}`}</Progress>
+              <Report>
+                <FaRegFlag size={12} />
+                <ParagraphInline>Report</ParagraphInline>
+              </Report>
+            </FlexContainer>
             <CloseContainer>
               <IoMdClose size={25} onClick={() => toggleModal(false)} />
             </CloseContainer>
@@ -239,7 +314,7 @@ const ReviewList = (props) => {
               <Helpfuls type="button">
                 <FaRegThumbsUp />
                 <p><strong>Helpful</strong></p>
-                0
+                <Paragraph>{images[selectedImageIndex].helpfuls}</Paragraph>
               </Helpfuls>
               <IconList>
                 <FaPinterest />
@@ -255,6 +330,13 @@ const ReviewList = (props) => {
             <RightArrow>
               <IoIosArrowForward size={50} onClick={() => changeImage(selectedImageIndex + 1)} />
             </RightArrow>
+            <Caption>{images[selectedImageIndex].caption}</Caption>
+            <Help>
+              <FlexContainer>
+                <MdHelpOutline size={20} />
+                <ParagraphInline>Help</ParagraphInline>
+              </FlexContainer>
+            </Help>
           </ModalContainer>
         </>
       ) : (<></>) }
