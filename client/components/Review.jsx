@@ -146,7 +146,7 @@ transition: visibility 0s, opacity 0.5s, linear;
 
 const Review = (props) => {
   const { review, onImageClick } = props;
-  const renderedImages = review.images.slice(0, 9);
+  const renderedImages = review.images.slice(0, 4);
   const iconChoices = {
     Yes: [<HiThumbUp size={14} />, '#40d9ac', 'recommends'],
     No: [<HiThumbDown size={14} />, '#757575', 'doesn\'t recommend'],
