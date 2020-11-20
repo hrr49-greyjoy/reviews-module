@@ -22,7 +22,7 @@ module.exports.getData = () => {
     imageURLS = data.Contents.map((image) => `https://fec-storage.s3.us-east-2.amazonaws.com/${image.Key}`);
     return promiseTwo.then((otherData) => {
       const profilePicUrls = otherData.Contents.map((avatar) => `https://fec-profilepics.s3.us-east-2.amazonaws.com/${avatar.Key}`);
-      for (let i = 0; i < 101; i += 1) {
+      for (let i = 0; i < 5000; i += 1) {
         const usedUrls = imageURLS.slice(Math.floor(Math.random() * imageURLS.length),
           Math.floor(Math.random() * imageURLS.length) + 1);
         const imageData = usedUrls.map((url) => ({
@@ -41,7 +41,7 @@ module.exports.getData = () => {
           tagline: faker.lorem.sentence(),
           dateAdded: faker.date.between('2015-01-01', '2020-01-08'),
           recommended: recommended[Math.floor(Math.random() * 3)],
-          siteId: faker.random.number(10),
+          siteId: faker.random.number(100),
           images: imageData,
           profilePic: profilePicUrls[faker.random.number(profilePicUrls.length - 1)],
         };
