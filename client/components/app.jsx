@@ -10,7 +10,8 @@ const App = () => {
       setReviews(reviewData.data);
     }).catch((e) => axios.get('http://localhost:3000/api/reviews').then((reviewData) => {
       setReviews(reviewData.data);
-      console.log(e);
+      // eslint-disable-next-line no-console
+      console.error(e);
     }));
   }, []);
   return (

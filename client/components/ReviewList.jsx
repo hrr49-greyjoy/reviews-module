@@ -369,7 +369,6 @@ const ReviewList = (props) => {
 
   useEffect(() => {
     sortReviews('Best');
-    console.log(reviews);
   }, [reviews]);
   return (
     <div>
