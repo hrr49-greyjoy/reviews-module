@@ -16,14 +16,13 @@ app.use(express.static(path.resolve(__dirname, '../client')));
 app.use(bodyParser.json());
 
 app.listen(3001, () => {
-  console.log('Listening on port 3000');
+  console.log('Listening on port 3001');
 });
 
 app.get('/api/image', (req, res) => {
   // console.log(req, res);
   console.log('Serving GET request for /api/image');
   imageHandler.getImagesAsync().then((photos) => Promise.all(photos)).then((data) => {
-    console.log(data);
     res.send(data.map((buffer) => buffer.Body.toString('base64')));
   }).catch((err) => {
     console.error(err);
