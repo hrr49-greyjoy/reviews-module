@@ -8,7 +8,10 @@ const App = () => {
   useEffect(() => {
     axios.get('/api/reviews').then((reviewData) => {
       setReviews(reviewData.data);
-    });
+    }).catch((e) => axios.get('http://localhost:3000/api/reviews').then((reviewData) => {
+      setReviews(reviewData.data);
+      console.log(e);
+    }));
   }, []);
   return (
     <div>

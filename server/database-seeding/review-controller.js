@@ -39,7 +39,7 @@ module.exports.getData = () => {
         dateAdded: faker.date.between('2015-01-01', '2020-01-08'),
         recommended: recommended[Math.floor(Math.random() * 3)],
         images: imageData,
-        profilePic: faker.image.avatar(),
+        profilePic: faker.image.people(),
       };
       documents.push(obj);
     }
