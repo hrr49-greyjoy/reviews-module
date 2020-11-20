@@ -1,7 +1,10 @@
+/* eslint-disable no-shadow */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-confusing-arrow */
 /* eslint-disable no-loop-func */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { IoIosArrowBack, IoIosArrowForward, IoMdClose } from 'react-icons/io';
 import {
   FaRegThumbsUp, FaPinterest, FaFacebook, FaTwitter, FaLink, FaRegFlag,
@@ -10,6 +13,298 @@ import { MdHelpOutline } from 'react-icons/md';
 
 import Review from './Review';
 
+const fadeIn = keyframes`
+from {
+  transform: scale(.25);
+  opacity: 0;
+}
+
+to {
+  transform: scale(1);
+  opacity: 1;
+}
+
+`;
+
+// const fadeOut = keyframes`
+// from {
+//   transform: scale(1);
+//   opacity: 1;
+// }
+
+// to {
+//   transform: scale(.25);
+//   opacity: 0;
+// }
+
+// `;
+
+const Line = styled.div`
+border-bottom: 0.1em solid #ebebeb;
+margin-left: 6.5em;
+max-width: 52%;
+`;
+const HeadingContainer = styled.div`
+display: flex;
+margin-left: 6.5em;
+justify-content: space-between;
+align-items: center;
+max-width: 52%;
+font-family: "Calibre";
+`;
+const Subheading = styled.p`
+font-weight: bold;
+font-family: "Calibre";
+display: inline-block;
+`;
+const FilterLink = styled.a`
+text-decoration: none;
+border-bottom: 1px solid #ebebeb;
+transition: 0.3s;
+&:hover {
+  cursor: pointer;
+  border-color: #333333;
+}
+`;
+const Filter = styled.div`
+display: flex;
+color: #757575;
+`;
+const Space = styled.p`
+margin: 0 .2em 0 .2em;
+display: inline-block;
+`;
+const Bold = styled.p`
+font-weight: bold;
+color: #333333;
+margin: 0;
+`;
+const Paragraph = styled.p`
+margin: 0;
+`;
+const ParagraphInline = styled.p`
+margin: 0;
+margin-left: 0.25em;
+display: inline-block;
+`;
+const Progress = styled.p`
+margin: 0;
+padding: 10px;
+color: #FFF;
+font-size:13px;
+display: inline-block;
+`;
+const ModalContainer = styled.div`
+display: block;
+position: fixed;
+visibility: ${(props) => props.modalToggle ? 'visible' : 'hidden'};
+z-index: 1;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+overflow: auto;
+background-color: rgb(0,0,0);
+background-color: rgba(0,0,0,0.92);
+transition: 0.2s;
+font-family: "Calibre";
+transition: visibility 0.1s linear;
+animation: ${(props) => props.isRendering ? fadeIn : ''} 0.1s linear;
+`;
+
+const LeftArrow = styled.div`
+color: #ededed;
+top: 50%;
+display: block;
+float: left;
+position: fixed;
+z-index: 2;
+
+`;
+const Next = styled(IoIosArrowForward)`
+transition: 0.1s;
+&:hover {
+  color: #FFF;
+  cursor: pointer;
+  transform: scale(1.2);
+}
+`;
+const Back = styled(IoIosArrowBack)`
+transition: 0.1s;
+&:hover {
+  color: #FFF;
+  cursor: pointer;
+  transform: scale(1.2);
+}
+`;
+const RightArrow = styled.div`
+color: #ededed;
+top: 50%;
+left: 97%;
+display: block;
+float: right;
+position: fixed;
+z-index: 2;
+&:hover {
+  cursor: pointer;
+}
+`;
+const FlexContainer = styled.div`
+display: flex;
+position: fixed;
+align-items: center;
+`;
+const Report = styled.a`
+text-decoration: none;
+align-self: center;
+font-size: 0.8em;
+margin-left: 0.75em;
+transition: 0.4s;
+color: #757575;
+display: flex;
+align-items: center;
+&:hover {
+  cursor: pointer;
+  color: #40d9ac;
+};
+`;
+const Image = styled.img`
+  max-height: 75%;
+  max-width: 75%;
+  width: auto;
+  height: auto;
+  margin-left: auto;
+  margin: 2% auto auto auto;
+  display: block;
+`;
+const AuthorInformation = styled.div`
+max-width: 58%;
+margin: 1% auto;
+z-index: 2;
+display: grid;
+grid-template: 4fr 1fr / 3fr auto;
+`;
+const ProfilePicture = styled.img`
+height:50px;
+width:50px;
+border-radius:50%;
+justify-self: start;
+align-self: start;
+`;
+const CloseContainer = styled.div`
+float: right;
+float: top;
+color: #ededed;
+margin-top: 0.5em;
+margin-right: 0.5em;
+&:hover {
+  cursor: pointer;
+}
+`;
+const AuthorName = styled.h1`
+display: inline-block;
+color: #ededed;
+margin: 0;
+margin-left:0.4em;
+`;
+const NameAndDate = styled.div`
+display: grid;
+grid-template-columns: auto 1fr;
+`;
+const ReviewDate = styled.p`
+margin: 0;
+font-size: 0.7em;
+color: #5c5c5c;
+margin-left:1.4em;
+`;
+
+const Helpfuls = styled.button`
+background-color: #40d9ac;
+border: none;
+display: flex;
+justify-content: space-between;
+align-items: center;
+color: #fafafa;
+height: 3em;
+width: 7.5em;
+font-weight: 600;
+font-size:0.9em;
+transition: 0.4s;
+&:hover {
+  background-color: #3cc69e;
+  cursor: pointer;
+  border: none;
+};
+`;
+const IconList = styled.div`
+display: flex;
+grid-area: 2 / 2 / 2 / 2;
+align-items: center;
+justify-content: space-between;
+color: #ededed;
+`;
+const Caption = styled.p`
+margin: 0;
+padding: 1em;
+margin-top: 1em;
+font-weight: bold;
+color: #FFF;
+text-align: center;
+`;
+const LinkTo = styled(FaLink)`
+  &:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+`;
+const Pinterest = styled(FaPinterest)`
+  &:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+`;
+const Facebook = styled(FaFacebook)`
+  &:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+`;
+const Twitter = styled(FaTwitter)`
+  &:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+`;
+
+const Help = styled.button`
+background-color: #40d9ac;
+position: fixed;
+bottom: 0;
+right: 0;
+margin: 2em;
+border: none;
+border-radius: 5em;
+display: flex;
+justify-content: center;
+align-items: center;
+color: #1D5242;
+height: 3em;
+width: 7em;
+gap: 0.25em;
+font-weight: 600;
+font-size:0.9em;
+transition: 0.4s;
+&:hover {
+  background-color: #3cc69e;
+  cursor: pointer;
+  border: none;
+};
+`;
+const Cross = styled(IoMdClose)`
+&:hover {
+  color: #FFF;
+}`;
+
 const ReviewList = (props) => {
   const { reviews } = props;
   const [filter, setFilter] = useState('Best');
@@ -17,226 +312,7 @@ const ReviewList = (props) => {
   const [modalToggle, toggleModal] = useState(false);
   const [selectedImageIndex, changeImage] = useState(0);
   const [images, changeImages] = useState([]);
-
-  const Line = styled.div`
-  border-bottom: 0.1em solid #ebebeb;
-  margin-left: 6.5em;
-  max-width: 52%;
-  `;
-  const HeadingContainer = styled.div`
-  display: flex;
-  margin-left: 6.5em;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 52%;
-  font-family: "Calibre";
-  `;
-  const Subheading = styled.p`
-  font-weight: bold;
-  font-family: "Calibre";
-  display: inline-block;
-  `;
-  const FilterLink = styled.a`
-  text-decoration: none;
-  border-bottom: 1px solid #ebebeb;
-  transition: 0.3s;
-  &:hover {
-    cursor: pointer;
-    border-color: #333333;
-  }
-  `;
-  const Filter = styled.div`
-  display: flex;
-  color: #757575;
-  `;
-  const Space = styled.p`
-  margin: 0 .2em 0 .2em;
-  display: inline-block;
-  `;
-  const Bold = styled.p`
-  font-weight: bold;
-  color: #333333;
-  margin: 0;
-  `;
-  const Paragraph = styled.p`
-  margin: 0;
-  `;
-  const ParagraphInline = styled.p`
-  margin: 0;
-  margin-left: 0.25em;
-  display: inline-block;
-  `;
-  const Progress = styled.p`
-  margin: 0;
-  padding: 10px;
-  color: #FFF;
-  font-size:13px;
-  display: inline-block;
-  `;
-  const ModalContainer = styled.div`
-  display: block;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.92);
-  font-family: "Calibre";
-  `;
-
-  const LeftArrow = styled.div`
-  color: #ededed;
-  top: 50%;
-  display: block;
-  float: left;
-  position: absolute;
-  z-index: 2;
-  &:hover {
-    cursor: pointer;
-  }
-  `;
-  const RightArrow = styled.div`
-  color: #ededed;
-  top: 50%;
-  left: 97%;
-  display: block;
-  float: right;
-  position: absolute;
-  z-index: 2;
-  &:hover {
-    cursor: pointer;
-  }
-  `;
-  const FlexContainer = styled.div`
-  display: flex;
-  position: fixed;
-  align-items: center;
-  `;
-  const Report = styled.a`
-  text-decoration: none;
-  align-self: center;
-  font-size: 0.8em;
-  margin-left: 0.75em;
-  transition: 0.4s;
-  color: #757575;
-  display: flex;
-  align-items: center;
-  &:hover {
-    cursor: pointer;
-    color: #40d9ac;
-  };
-  `;
-  const Image = styled.img`
-    max-height: 75%;
-    max-width: 75%;
-    width: auto;
-    height: auto;
-    margin-left: auto;
-    margin: 2% auto auto auto;
-    display: block;
-  `;
-  const AuthorInformation = styled.div`
-  max-width: 58%;
-  margin: 1% auto;
-  z-index: 2;
-  display: grid;
-  grid-template: 4fr 1fr / 3fr auto;
-  `;
-  const ProfilePicture = styled.img`
-  height:50px;
-  width:50px;
-  border-radius:50%;
-  justify-self: start;
-  align-self: start;
-  `;
-  const CloseContainer = styled.div`
-  float: right;
-  float: top;
-  color: #ededed;
-  margin-top: 0.5em;
-  margin-right: 0.5em;
-  &:hover {
-    cursor: pointer;
-  }
-  `;
-  const AuthorName = styled.h1`
-  display: inline-block;
-  color: #ededed;
-  margin: 0;
-  margin-left:0.4em;
-  `;
-  const NameAndDate = styled.div`
-  display: grid;
-  grid-template-columns: auto 1fr;
-  `;
-  const ReviewDate = styled.p`
-  margin: 0;
-  font-size: 0.7em;
-  color: #5c5c5c;
-  margin-left:1.4em;
-  `;
-
-  const Helpfuls = styled.button`
-  background-color: #40d9ac;
-  border: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fafafa;
-  height: 3em;
-  width: 7.5em;
-  font-weight: 600;
-  font-size:0.9em;
-  transition: 0.4s;
-  &:hover {
-    background-color: #3cc69e;
-    cursor: pointer;
-    border: none;
-  };
-  `;
-  const IconList = styled.div`
-  display: flex;
-  grid-area: 2 / 2 / 2 / 2;
-  align-items: center;
-  justify-content: space-between;
-  color: #ededed;
-  `;
-  const Caption = styled.p`
-  margin: 0;
-  padding: 1em;
-  margin-top: 1em;
-  font-weight: bold;
-  color: #FFF;
-  text-align: center;
-  `;
-
-  const Help = styled.button`
-  background-color: #40d9ac;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  margin: 2em;
-  border: none;
-  border-radius: 5em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #1D5242;
-  height: 3em;
-  width: 7em;
-  gap: 0.25em;
-  font-weight: 600;
-  font-size:0.9em;
-  transition: 0.4s;
-  &:hover {
-    background-color: #3cc69e;
-    cursor: pointer;
-    border: none;
-  };
-  `;
+  const [playAnimation, toggleAnimate] = useState(false);
 
   const setImages = () => {
     const mappedImages = reviews.map((x) => (x.images.map((y, i) => ({
@@ -268,6 +344,12 @@ const ReviewList = (props) => {
   const revealModal = (toggle, index) => {
     changeImage(index);
     toggleModal(toggle);
+    toggleAnimate(true);
+  };
+
+  const closeModal = () => {
+    toggleModal(false);
+    toggleAnimate(false);
   };
 
   const sortReviews = (filterText) => {
@@ -290,9 +372,9 @@ const ReviewList = (props) => {
   }, [reviews]);
   return (
     <div>
-      { modalToggle === true ? (
-        <>
-          <ModalContainer>
+      {images[selectedImageIndex] === undefined ? <></>
+        : (
+          <ModalContainer isRendering={playAnimation} modalToggle={modalToggle}>
             <FlexContainer>
               <Progress>{`${selectedImageIndex + 1} / ${images.length}`}</Progress>
               <Report>
@@ -301,7 +383,7 @@ const ReviewList = (props) => {
               </Report>
             </FlexContainer>
             <CloseContainer>
-              <IoMdClose size={25} onClick={() => toggleModal(false)} />
+              <Cross size={25} onClick={() => closeModal()} />
             </CloseContainer>
             <AuthorInformation>
               <NameAndDate>
@@ -317,18 +399,18 @@ const ReviewList = (props) => {
                 <Paragraph>{images[selectedImageIndex].helpfuls}</Paragraph>
               </Helpfuls>
               <IconList>
-                <FaPinterest />
-                <FaFacebook />
-                <FaTwitter />
-                <FaLink />
+                <Pinterest />
+                <Facebook />
+                <Twitter />
+                <LinkTo />
               </IconList>
             </AuthorInformation>
             <LeftArrow>
-              <IoIosArrowBack size={50} onClick={() => changeImage(selectedImageIndex - 1)} />
+              <Back size={50} onClick={() => changeImage(selectedImageIndex - 1)} />
             </LeftArrow>
             <Image src={images[selectedImageIndex].url} />
             <RightArrow>
-              <IoIosArrowForward size={50} onClick={() => changeImage(selectedImageIndex + 1)} />
+              <Next size={50} onClick={() => changeImage(selectedImageIndex + 1)} />
             </RightArrow>
             <Caption>{images[selectedImageIndex].caption}</Caption>
             <Help>
@@ -338,8 +420,7 @@ const ReviewList = (props) => {
               </FlexContainer>
             </Help>
           </ModalContainer>
-        </>
-      ) : (<></>) }
+        )}
       <Line />
       <HeadingContainer>
         <div>
@@ -376,7 +457,11 @@ const ReviewList = (props) => {
 };
 
 ReviewList.propTypes = {
-  reviews: PropTypes.element.isRequired,
+  reviews: PropTypes.arrayOf(PropTypes.object),
+};
+
+ReviewList.defaultProps = {
+  reviews: [],
 };
 
 export default ReviewList;
