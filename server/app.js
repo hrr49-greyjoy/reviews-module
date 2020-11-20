@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const imageHandler = Promise.promisifyAll(require('./models/images.js'));
 const reviewHandler = Promise.promisifyAll(require('./controllers/review.controller.js'));
 
+let reviewId = 0;
+
 require('dotenv').config();
 
 app.use(express.static(path.resolve(__dirname, '../client')));
@@ -30,10 +32,15 @@ app.get('/api/image', (req, res) => {
 
 app.get('/api/reviews', (req, res) => {
   console.log('Serving GET request for /api/reviews');
-  reviewHandler.getReviewData().then((data) => {
+  reviewHandler.getReviewData(reviewId).then((data) => {
     console.log(data);
     res.send(data);
   }).catch((err) => {
     console.error(err);
   });
 });
+
+app.get('/:id', (req, res) => {
+  reviewId = req.params.id;
+  res.redirect('/');
+})

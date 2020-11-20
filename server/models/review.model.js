@@ -15,6 +15,7 @@ const reviewSchema = Schema({
   recommended: String,
   images: Object,
   profilePic: String,
+  siteId: Number,
 
 });
 

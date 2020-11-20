@@ -106,9 +106,7 @@ height: 100%;
 overflow: auto;
 background-color: rgb(0,0,0);
 background-color: rgba(0,0,0,0.92);
-transition: 0.2s;
 font-family: "Calibre";
-transition: visibility 0.1s linear;
 animation: ${(props) => props.isRendering ? fadeIn : ''} 0.1s linear;
 `;
 
@@ -159,7 +157,7 @@ text-decoration: none;
 align-self: center;
 font-size: 0.8em;
 margin-left: 0.75em;
-transition: 0.4s;
+transition: color 0.4s;
 color: #757575;
 display: flex;
 align-items: center;
@@ -229,7 +227,7 @@ height: 3em;
 width: 7.5em;
 font-weight: 600;
 font-size:0.9em;
-transition: 0.4s;
+transition: background-color 0.4s;
 &:hover {
   background-color: #3cc69e;
   cursor: pointer;
@@ -293,7 +291,7 @@ width: 7em;
 gap: 0.25em;
 font-weight: 600;
 font-size:0.9em;
-transition: 0.4s;
+transition: background-color 0.4s;
 &:hover {
   background-color: #3cc69e;
   cursor: pointer;
