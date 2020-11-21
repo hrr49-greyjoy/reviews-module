@@ -143,6 +143,9 @@ transition: visibility 0s, opacity 0.5s, linear;
   opacity: 1;
 }
 `;
+const ParagraphText = styled.p`
+
+`;
 
 const Review = (props) => {
   const { review, onImageClick } = props;
@@ -176,7 +179,7 @@ const Review = (props) => {
             <DateTime>{new Intl.DateTimeFormat('en-us', { dateStyle: 'medium' }).format(new Date(review.dateAdded))}</DateTime>
           </Recommendation>
           <div>
-            <p>{review.description}</p>
+            <ParagraphText>{review.description}</ParagraphText>
           </div>
           {
           renderedImages.length > 0
