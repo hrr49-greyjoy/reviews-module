@@ -39,7 +39,8 @@ app.get('/api/reviews', (req, res) => {
   });
 });
 
-app.get('/api/:id', (req, res) => {
+app.get('/api/reviews/:id', (req, res) => {
+    console.log(reviewId);
     reviewId = req.params.id;
     console.log(reviewId);
     res.redirect('/');
