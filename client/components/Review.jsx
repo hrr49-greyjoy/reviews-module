@@ -175,8 +175,8 @@ const Review = (props) => {
             </Paragraph>
             <DateTime>{new Intl.DateTimeFormat('en-us', { dateStyle: 'medium' }).format(new Date(review.dateAdded))}</DateTime>
           </Recommendation>
-          <div className="review-information">
-            <p className="description">{review.description}</p>
+          <div>
+            <p>{review.description}</p>
           </div>
           {
           renderedImages.length > 0
