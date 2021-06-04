@@ -10,7 +10,7 @@ const recommended = ['Yes', 'No', 'Neutral'];
 
 const documents = [];
 
-AWS.config.loadFromPath(path.resolve(__dirname, '../../config.json'));
+// AWS.config.loadFromPath(path.resolve(__dirname, '../../config.json'));
 
 const s3 = new AWS.S3();
 const promise = s3.listObjectsV2({ Bucket: 'fec-storage' }).promise();
