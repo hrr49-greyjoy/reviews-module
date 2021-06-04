@@ -17,7 +17,7 @@ app.use(express.static(path.resolve(__dirname, '../client')));
 
 app.use(bodyParser.json());
 
-app.listen(3001, () => {
+app.listen(PORT, () => {
   console.log('Listening on port 3001');
 });
 
