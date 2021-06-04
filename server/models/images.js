@@ -2,7 +2,7 @@ const path = require('path');
 const AWS = require('aws-sdk');
 const Promise = require('bluebird');
 
-AWS.config.loadFromPath(path.resolve(__dirname, '../../config.json'));
+// AWS.config.loadFromPath(path.resolve(__dirname, '../../config.json'));
 
 const s3 = new AWS.S3();
 s3.listObjectsAsync = Promise.promisify(s3.listObjects);
