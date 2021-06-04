@@ -5,7 +5,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './client/dist'),
   },
-  watch: true,
+  watch: false,
   resolve: {
     extensions: ['.js', '.jsx'],
   },
