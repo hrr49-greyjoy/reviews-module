@@ -2,7 +2,7 @@ const path = require('path');
 const Seeder = require('mongoose-seed');
 const reviewControl = require('./review-controller');
 
-const db = 'mongodb://localhost:27017/reviews';
+const db = 'mongodb://100.27.26.88:27017/reviews';
 
 Seeder.connect(db, () => {
   reviewControl.getData().then((exportData) => {
