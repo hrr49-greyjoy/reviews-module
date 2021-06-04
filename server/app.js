@@ -11,6 +11,8 @@ let reviewId = 0;
 
 require('dotenv').config();
 
+const PORT = process.env.PORT || 3001
+
 app.use(express.static(path.resolve(__dirname, '../client')));
 
 app.use(bodyParser.json());
